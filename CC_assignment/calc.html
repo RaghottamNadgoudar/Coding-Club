@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+            height: 75%;
+            width: 1000px;
+            gap:2px;
+            padding: 10px;
+            margin-top: 20px;
+            flex-direction: column;
+            
+        }
+        
+
+        .buttons{
+            width: 300px;
+        }
+        .display{
+            width: 300px;
+            height: 5vh;
+            background-color: #c0d99e; 
+        }
+        .row {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+       
+        .but{
+            padding: 2vh;
+            border: 1px solid black;
+            flex-grow: 1;
+            box-sizing: border-box;
+            flex: 1;
+            text-align: center;
+             background-color: #2b2b2b;  /* dark gray */
+            color: #d3d3d3;
+            cursor: pointer;
+
+        }
+        .but:active {
+  transform: scale(0.95);
+  background-color: #444;
+}
+         .clean{
+            flex:3;
+            background-color: red;
+            color:white;
+
+        }
+        .equal{
+            background-color: blue;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="display" id="display"></div>
+        <div class="buttons">
+
+
+        <div class="row">
+
+        <div class="clean but">C</div>
+        <div class="but">/</div>
+        <div class="but">*</div>
+
+        </div>
+
+        <div class="row">
+
+        <div class="but">7</div>
+        <div class="but">8</div>
+        <div class="but">9</div>
+        <div class="but">-</div>
+
+        </div>
+
+        <div class="row">
+        <div class="but">4</div>
+        <div class="but">5</div>
+        <div class="but">6</div>
+        <div class="plus but">+</div>
+
+        </div>
+
+        <div class="row">
+        <div class="but">1</div>
+        <div class="but">2</div>
+        <div class="but">3</div>
+        <div class="but">AC</div>
+        </div>
+
+        <div class="row">
+        <div class="but">0</div>
+        <div class="but">00</div>
+        <div class="but">.</div>
+        <div class="equal but">=</div>
+        </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+</body>
+<script>
+
+let dis=document.getElementById("display")
+
+let expression=""   
+document.querySelector(".buttons").addEventListener('click',(e)=>{
+    
+    let val=e.target.innerText;
+    
+    let sound=new Audio("music.wav")
+    sound.play()
+        if (val === "+" || val === "-" || val === "*" || val === "/") {
+            if (expression === "" || /[\+\-\*\/]$/.test(expression)) {
+                return; 
+            }
+        }
+
+        if (val === "C") {
+            expression = expression.slice(0, -1); // Removes the last character
+        } else if (val === "AC") {
+            expression = ""; 
+        } else if (val === "=") {
+            try {
+                expression = eval(expression).toString();
+            } catch {
+                expression = "ERR"; 
+            }
+        } else {
+            expression += val; 
+        }
+
+        dis.innerText = expression;
+    })
+
+</script>
+
+</html>
